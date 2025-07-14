@@ -1,12 +1,7 @@
-# Assumptions
+## Assumption: Gross Profit Margin
 
-## 1. Profit Margin
+Based on Walmart's publicly reported gross margin (ranging from 24.09% to 24.88% between 2023 and 2025), an average flat gross margin of **24.5%** has been assumed.
 
-Since the dataset does not include cost of goods sold (COGS), we estimate profit using a flat **24.5% gross margin**, based on Walmart’s publicly reported values between 2023–2025.
+📌 Source: [Walmart Gross Margin Historical Data, Macrotrends](https://www.macrotrends.net/stocks/charts/WMT/walmart/gross-margin)
 
-- 📊 Gross Margin Range: 24.09% – 24.88%
-- 📌 Source: Macrotrends.net – Walmart Gross Margin Historical Data
-
-```DAX
-Estimated_Profit = [Total_Sales] * 0.245
-
+Profit = 24.5% × Weekly Sales
