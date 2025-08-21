@@ -1,0 +1,48 @@
+1. Week_Num = 
+    WEEKNUM('SalesFact'[Date], 2)  -- 2 = week starts on Monday
+
+2. IsHoliday Label = 
+    IF(SalesFact[IsHoliday], "Holiday", "Non-Holiday")
+
+3. Top_Store_ID = 
+    VAR t = TOPN(
+        1, 
+        SUMMARIZE(
+            Stores,  -- dimension table
+            Stores[Store], 
+            "Sales", CALCULATE([Total_Sales])
+        ), 
+        [Sales], DESC, 
+        Stores[Store], ASC
+    ) 
+    RETURN MAXX(t, Stores[Store])
+
+4. Year = 
+    YEAR([Date])
+
+5. MonthNo = 
+    MONTH([Date])
+
+6. Month = 
+    FORMAT([Date], "MMMM")
+
+7. QuarterNo = 
+    INT(([MonthNo] + 2) / 3)
+
+8. Quarter = 
+    "Qtr " & [QuarterNo]
+
+9. Day = 
+    DAY([Date])
+
+10. Store Label = 
+    "Store " & FORMAT(Stores[Store], "00") & " – Type " & Stores[Store_Type]
+
+11. Store Color = 
+    SWITCH(
+        Stores[Store_Type], 
+        "A", "#367c2b",  -- GREEN 
+        "B", "#f47321",  -- ORANGE 
+        "C", "#6366F1",  -- Indigo 
+        "#9CA3AF"        -- Default color
+    )
