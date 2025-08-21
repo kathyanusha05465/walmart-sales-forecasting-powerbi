@@ -1,0 +1,83 @@
+1. Avg_Weekly_Profit = 
+    VAR Weeks = CALCULATE(DISTINCTCOUNT(SalesFact[Date])) 
+    RETURN DIVIDE([Estimated_Profit], Weeks)
+
+2. Avg_Weekly_Sales = 
+    VAR Weeks_ = COUNTROWS(DISTINCT(
+        SELECTCOLUMNS(
+            ALLSELECTED(SalesFact), 
+            "Year", YEAR(SalesFact[Date]), 
+            "Week", SalesFact[Week_Num]
+        )
+    )) 
+    RETURN DIVIDE([Total_Sales], Weeks_)
+
+3. Estimated_Profit = 
+    [Total_Sales] * 0.245
+
+4. Executive_Summary = 
+    "Store type " & SELECTEDVALUE(SalesFact[Store_Type]) & 
+    " generated an estimated profit of $" & 
+    FORMAT([Estimated_Profit], "#,0.00,,M") & 
+    ", averaging $" & 
+    FORMAT([Avg_Weekly_Profit], "#,0.00,,K") & 
+    " per week."
+
+5. Selected Store Type = 
+    SELECTEDVALUE(SalesFact[Store_Type])
+
+6. Selected Week = 
+    SELECTEDVALUE(SalesFact[Week_Num], "Multiple/None")
+
+7. Selected_Store_Type = 
+    SELECTEDVALUE(SalesFact[Store_Type])
+
+8. Selected_Week_Num = 
+    SELECTEDVALUE(SalesFact[Week_Num])
+
+9. Show_Tooltip = 
+    IF(
+        SELECTEDVALUE(SalesFact[Store_Type]) = SELECTEDVALUE(SalesFact[Store_Type]), 
+        1, 
+        0
+    )
+
+10. Store Narrative = 
+    VAR s = SELECTEDVALUE('Stores'[Store_Type], "-") 
+    RETURN 
+        "Store type " & s & 
+        " generated an estimated profit of $" & 
+        FORMAT([Estimated_Profit]/1e6, "0.00") & "M, averaging $" & 
+        FORMAT([Avg_Weekly_Profit]/1e6, "0.00") & "M per week."
+
+11. Tooltip_Week_Label = 
+    "Week: " & SELECTEDVALUE(SalesFact[Week_Num])
+
+12. Top_StoreType = 
+    VAR t = TOPN(
+        1, 
+        SUMMARIZE(
+            Stores, 
+            Stores[Store_Type], 
+            "Sales", CALCULATE([Total_Sales])
+        ), 
+        [Sales], DESC, 
+        Stores[Store_Type], ASC  -- tie-breaker
+    ) 
+    RETURN MAXX(t, Stores[Store_Type])
+
+13. Top_StoreType_Label = 
+    "Top store type: " & [Top_StoreType]
+
+14. Total_Sales = 
+    SUM(SalesFact[Weekly_Sales])
+
+15. Total_Sales_M = 
+    DIVIDE([Total_Sales], 1000000)
+
+16. YoY_Sales_Growth = 
+    VAR CurrentYear = YEAR(MAX(SalesFact[Date])) 
+    VAR PrevYear = CurrentYear - 1 
+    VAR Sales_Current = CALCULATE([Total_Sales], YEAR(SalesFact[Date]) = CurrentYear) 
+    VAR Sales_Prev = CALCULATE([Total_Sales], YEAR(SalesFact[Date]) = PrevYear) 
+    RETURN DIVIDE(Sales_Current - Sales_Prev, Sales_Prev)
