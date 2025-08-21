@@ -1,1 +1,17 @@
+# Power BI temp & cache
+*.pbix.RESTORE
+~$*
+
+# Data hygiene
+data/raw/
+data/private/
+
+# Allow small sample data
+!data/sample/**
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
 
