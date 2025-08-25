@@ -28,10 +28,12 @@ Star schema:
 - **YoY Sales Growth**
 - **Top Store Type** + narrative/tooltip helpers
   
-### DAX
+### DAX & Docs
 - Measures: [dax/measures/core_measures.dax](dax/measures/core_measures.dax)
-- Calculated columns: [dax/calc-columns/fact_and_dim_columns.dax](dax/calc-columns/fact_and_dim_columns.dax)
-- KPI notes: [Docs/KPIs.md](Docs/KPIs.md)
+- Calc columns: [dax/calc-columns/fact_and_dim_columns.dax](dax/calc-columns/fact_and_dim_columns.dax)
+- Architecture: [Docs/Architecture.md](Docs/Architecture.md)
+- KPIs: [Docs/KPIs.md](Docs/KPIs.md)
+- Changelog: [Docs/CHANGELOG.md](Docs/CHANGELOG.md)
 
 ## Screens
 - **Executive Overview** – KPIs, weekly pattern, top store type  
