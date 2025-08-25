@@ -81,3 +81,18 @@
     VAR Sales_Current = CALCULATE([Total_Sales], YEAR(SalesFact[Date]) = CurrentYear) 
     VAR Sales_Prev = CALCULATE([Total_Sales], YEAR(SalesFact[Date]) = PrevYear) 
     RETURN DIVIDE(Sales_Current - Sales_Prev, Sales_Prev)
+
+17. YoY_Sales_Growth_v2 = 
+VAR cy = SELECTEDVALUE( SalesFact[Year] )
+VAR sales_cy =
+    CALCULATE( [Total_Sales],
+        REMOVEFILTERS( SalesFact[Date] ),
+        SalesFact[Year] = cy
+    )
+VAR sales_py =
+    CALCULATE( [Total_Sales],
+        REMOVEFILTERS( SalesFact[Date] ),
+        SalesFact[Year] = cy - 1
+    )
+RETURN DIVIDE( sales_cy - sales_py, sales_py )
+
