@@ -46,3 +46,6 @@
         "C", "#6366F1",  -- Indigo 
         "#9CA3AF"        -- Default color
     )
+
+12. Year = YEAR ( SalesFact[Date] )
+
