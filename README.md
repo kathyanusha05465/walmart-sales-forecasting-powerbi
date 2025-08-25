@@ -60,5 +60,6 @@ Star schema:
 - `YoY_Sales_Growth_v2` uses the selected **Year** and compares to the prior year (first year shows blank).
 - “Top Store” is filter-aware (respects slicers); “Top Store Type” is a separate KPI on purpose.
 
+License: MIT — see [LICENSE](LICENSE)
 
 
