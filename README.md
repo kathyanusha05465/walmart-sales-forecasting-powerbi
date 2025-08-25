@@ -55,6 +55,6 @@ See `/Screenshots` for full dashboards (Executive Overview & Profitability Insig
 - “Top Store” is filter-aware (respects slicers); “Top Store Type” is a separate KPI on purpose.
 
 ## Preview
-![Executive Overview](assets/screenshots/Executive_Overview.png)
+![Executive Overview](assets/screenshots/Executive Overview.png)
 ![Profitability Insights](assets/screenshots/Profitability_Insights.png)
 
