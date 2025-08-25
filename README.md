@@ -54,4 +54,7 @@ See `/Screenshots` for full dashboards (Executive Overview & Profitability Insig
 - `YoY_Sales_Growth_v2` uses the selected **Year** and compares to the prior year (first year shows blank).
 - “Top Store” is filter-aware (respects slicers); “Top Store Type” is a separate KPI on purpose.
 
+## Preview
+![Executive Overview](assets/screenshots/executive_overview.png)
+![Profitability Insights](assets/screenshots/profitability_insights.png)
 
