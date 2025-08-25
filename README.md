@@ -34,7 +34,11 @@ Star schema:
 - KPI notes: [Docs/KPIs.md](Docs/KPIs.md)
 
 ## Screens
-See `/Screenshots` for full dashboards (Executive Overview & Profitability Insights) with drill‑through examples.
+- **Executive Overview** – KPIs, weekly pattern, top store type  
+  [View screenshot](assets/screenshots/executive_overview.png)
+
+- **Profitability Insights** – profit by store type, holiday vs non-holiday, weekly trend  
+  [View screenshot](assets/screenshots/profitability_insights.png)
 
 ## How to open and refresh
 1. Open **PowerBI_Files/Walmart_Sales.pbix** in Power BI Desktop.
@@ -53,10 +57,6 @@ See `/Screenshots` for full dashboards (Executive Overview & Profitability Insig
 ### Notes
 - `YoY_Sales_Growth_v2` uses the selected **Year** and compares to the prior year (first year shows blank).
 - “Top Store” is filter-aware (respects slicers); “Top Store Type” is a separate KPI on purpose.
-
-## Preview
-![Executive Overview](assets/screenshots/executive_overview.png)
-![Profitability Insights](assets/screenshots/profitability_insights.png)
 
 
 
