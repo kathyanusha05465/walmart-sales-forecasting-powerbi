@@ -27,8 +27,11 @@ Star schema:
 - **Avg Weekly Sales / Profit** (context‑aware by selections)
 - **YoY Sales Growth**
 - **Top Store Type** + narrative/tooltip helpers
-
-Complete DAX library lives in [`/Documentation/DAX_Measures.md`](Documentation/DAX_Measures.md).
+  
+### DAX
+- Measures: [dax/measures/core_measures.dax](dax/measures/core_measures.dax)
+- Calculated columns: [dax/calc-columns/fact_and_dim_columns.dax](dax/calc-columns/fact_and_dim_columns.dax)
+- KPI notes: [Docs/KPIs.md](Docs/KPIs.md)
 
 ## Screens
 See `/Screenshots` for full dashboards (Executive Overview & Profitability Insights) with drill‑through examples.
