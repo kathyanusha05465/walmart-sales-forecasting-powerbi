@@ -33,10 +33,22 @@ Complete DAX library lives in [`/Documentation/DAX_Measures.md`](Documentation/D
 ## Screens
 See `/Screenshots` for full dashboards (Executive Overview & Profitability Insights) with drill‑through examples.
 
-## How to run
-1. Open `PowerBI_Files/Walmart Project.pbix` (or connect from new PBIX).
-2. In **Power Query**, sources point to GitHub raw CSVs (no local paths).
-3. Refresh. Model builds and measures compute automatically.
+## How to open and refresh
+1. Open **PowerBI_Files/Walmart_Sales.pbix** in Power BI Desktop.
+2. If prompted, set **Anonymous** credentials for `https://raw.githubusercontent.com/`.
+3. Home → **Transform data** (review) → **Close & Apply** → **Refresh**.
 
 ## Repo structure
+- `PowerBI_Files/` – PBIX (Git LFS)
+- `Data/` – `train.csv`, `features.csv`, `stores.csv` (raw inputs)
+- `powerquery/queries/` – M code for `Sales`, `Features`, `Stores`, `Sales_Stores`, `SalesFact`
+- `dax/measures/` – `core_measures.dax`
+- `dax/calc-columns/` – `fact_and_dim_columns.dax`
+- `assets/screenshots/` – dashboard images
+- `Docs/` – notes (e.g., KPIs.md)
+
+### Notes
+- `YoY_Sales_Growth_v2` uses the selected **Year** and compares to the prior year (first year shows blank).
+- “Top Store” is filter-aware (respects slicers); “Top Store Type” is a separate KPI on purpose.
+
 
