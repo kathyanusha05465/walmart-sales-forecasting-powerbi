@@ -96,3 +96,21 @@ VAR sales_py =
     )
 RETURN DIVIDE( sales_cy - sales_py, sales_py )
 
+18. Top_Store_ID_Measure = 
+VAR t =
+    TOPN(
+        1,
+        SUMMARIZE(
+            Stores,
+            Stores[Store],
+            "Sales", CALCULATE([Total_Sales])    -- respects current filters
+        ),
+        [Sales], DESC,
+        Stores[Store], ASC
+    )
+RETURN
+    MAXX(t, Stores[Store])
+
+19. Top_Store_ID_Text = "Store " & FORMAT( [Top_Store_ID_Measure], "00" )
+
+
