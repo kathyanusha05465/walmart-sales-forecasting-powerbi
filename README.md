@@ -2,7 +2,7 @@
 
 Production-style Power BI project that turns the Walmart weekly sales dataset into decision-ready insights.  
 The model is lightweight (fact + dimension), refreshes from CSVs hosted in this repo, and follows PL-300 best practices.  
-All M (Power Query) and DAX are versioned; the PBIX is tracked with Git LFS.
+All M (Power Query) and DAX are versioned, and the PBIX is tracked with Git LFS.
 
 ---
 
