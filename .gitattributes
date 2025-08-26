@@ -1,2 +1,8 @@
 *.pbix filter=lfs diff=lfs merge=lfs -text
 *.pbit filter=lfs diff=lfs merge=lfs -text
+
+Don’t let Power Query (.m) skew the language stats
+powerquery/queries/* linguist-vendored
+
+# DAX scripts are not detected by Linguist; hide from language stats as well
+dax/** linguist-vendored
