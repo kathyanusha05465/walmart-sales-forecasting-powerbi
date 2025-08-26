@@ -113,4 +113,75 @@ RETURN
 
 19. Top_Store_ID_Text = "Store " & FORMAT( [Top_Store_ID_Measure], "00" )
 
+20. Latest_Year = 
+MAX ( SalesFact[Year] )
+
+21. Holiday_Share_LY = 
+DIVIDE ( [Sales_Holiday_LY], [Total_Sales_LY] )
+
+22. Peak_Week_Num_LY = 
+VAR ly = [Latest_Year]
+VAR t =
+    TOPN(
+        1,
+        SUMMARIZE(
+            SalesFact,
+            SalesFact[Week_Num],
+            "Sales", CALCULATE ( [Total_Sales], SalesFact[Year] = ly )
+        ),
+        [Sales], DESC,
+        SalesFact[Week_Num], ASC
+    )
+RETURN
+MAXX ( t, SalesFact[Week_Num] )
+
+23. Sales_Holiday_LY = 
+VAR ly = [Latest_Year]
+RETURN CALCULATE ( [Total_Sales], SalesFact[Year] = ly, SalesFact[IsHoliday] = TRUE() )
+
+24. Top_Store_ID_LY = 
+VAR ly = [Latest_Year]
+VAR t =
+    TOPN(
+        1,
+        SUMMARIZE(
+            Stores,
+            Stores[Store],
+            "Sales", CALCULATE ( [Total_Sales], SalesFact[Year] = ly )
+        ),
+        [Sales], DESC,
+        Stores[Store], ASC
+    )
+RETURN
+MAXX ( t, Stores[Store] )
+
+25. Top_StoreType_LY = 
+VAR ly = [Latest_Year]
+VAR t =
+    TOPN(
+        1,
+        SUMMARIZE(
+            Stores,
+            Stores[Store_Type],
+            "Sales", CALCULATE ( [Total_Sales], SalesFact[Year] = ly )
+        ),
+        [Sales], DESC,
+        Stores[Store_Type], ASC
+    )
+RETURN
+MAXX ( t, Stores[Store_Type] )
+
+26. Total_Sales_LY = 
+VAR ly = [Latest_Year]
+RETURN
+CALCULATE ( [Total_Sales], SalesFact[Year] = ly )
+
+27. YoY_Sales_Growth_LY = 
+VAR ly = [Latest_Year]
+VAR sales_cy =
+    CALCULATE ( [Total_Sales], SalesFact[Year] = ly, REMOVEFILTERS ( SalesFact[Date] ) )
+VAR sales_py =
+    CALCULATE ( [Total_Sales], SalesFact[Year] = ly - 1, REMOVEFILTERS ( SalesFact[Date] ) )
+RETURN DIVIDE ( sales_cy - sales_py, sales_py )
+
 

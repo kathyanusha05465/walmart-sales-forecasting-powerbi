@@ -1,44 +1,65 @@
 # Walmart Sales Forecasting – Power BI
 
-A production‑style Power BI project that analyzes Walmart Canada’s weekly sales and profitability and surfaces store‑level insights with drill‑through. The model is lightweight (fact + dimension), refreshes from raw CSVs hosted on GitHub, and follows PL‑300 best practices.
+Production-style Power BI project that turns the Walmart weekly sales dataset into decision-ready insights.  
+The model is lightweight (fact + dimension), refreshes from CSVs hosted in this repo, and follows PL-300 best practices.  
+All M (Power Query) and DAX are versioned, and the PBIX is tracked with Git LFS.
+
+---
 
 ## What’s inside
-- **Executive Overview** – live KPIs, weekly sales pattern, top store type
-- **Profitability Insights** – store-type breakdown, holiday vs non‑holiday profit, weekly profit trend, smart narrative
-- **Reusable DAX library** – curated measures for KPIs, tooltips, and storytelling
-- **Automated inputs** – data pulled directly from GitHub raw CSVs (Power Query)
+- **Executive Overview** – live KPIs, weekly sales pattern by store type, top store summary
+- **Profitability Insights** – store-type contribution, holiday vs non-holiday profit, weekly profit trend
+- **Reusable DAX library** – curated measures for KPIs, YoY, tooltips, and narrative labels
+- **Reproducible refresh** – Power Query loads raw CSVs directly from GitHub (Anonymous)
 
 ## Dataset
-- `train.csv` – weekly sales by store & department  
-- `features.csv` – fuel prices, markdowns, CPI, temperature, holidays  
-- `stores.csv` – store type & size  
+- `train.csv` – weekly sales by Store & Dept  
+- `features.csv` – Temperature, Fuel_Price, MarkDown1–5, CPI, Unemployment, IsHoliday  
+- `stores.csv` – Store_Type & Size  
 
-_Source:_ Kaggle Walmart Sales (hosted via GitHub for reproducible refresh)
+_Source:_ Kaggle Walmart Sales (files hosted in this repo for reproducible refresh)
+
+## Data preprocessing (Power Query)
+- Replace `"NA"` → `null` in MarkDown1–5  
+- Enforce numeric types for **MarkDown1–5, CPI, Unemployment, Temperature, Fuel_Price**  
+- Normalize names (e.g., `Type → Store_Type`)  
+- Join **Sales ↔ Stores**, then enrich with **Features**  
+- Add helpers: **Week_Num**, **Year**, labels/colors for clean visuals  
+All query scripts are exported under `powerquery/queries/`.
 
 ## Data model
 Star schema:
-- **Fact**: `SalesFact` (Date, Store, Dept, Week_Num, Weekly_Sales, markdowns, economic drivers)
-- **Dim**: `Stores` (Store, Store_Type, Size, formatting fields)
-- Relationship: `Stores[Store] 1 ─── * SalesFact[Store]`
+- **Fact**: `SalesFact`  
+  *(Date, Store, Dept, Week_Num, Weekly_Sales, IsHoliday, Temperature, Fuel_Price, MarkDown1–5, CPI, Unemployment, Store_Type, Size)*
+- **Dim**: `Stores` *(Store, Store_Type, Size, formatting fields)*
+- **Relationship**: `Stores[Store] 1 ─── * SalesFact[Store]`
 
 ## Key KPIs (DAX)
-- **Total Sales**
-- **Estimated Profit** (assumed margin 24.5%)
-- **Avg Weekly Sales / Profit** (context‑aware by selections)
-- **YoY Sales Growth**
-- **Top Store Type** + narrative/tooltip helpers
-  
-### DAX
-- Measures: [dax/measures/core_measures.dax](dax/measures/core_measures.dax)
-- Calculated columns: [dax/calc-columns/fact_and_dim_columns.dax](dax/calc-columns/fact_and_dim_columns.dax)
-- KPI notes: [Docs/KPIs.md](Docs/KPIs.md)
+- **Total_Sales**
+- **Estimated_Profit** *(24.5% margin on sales)*
+- **Avg_Weekly_Sales / Avg_Weekly_Profit** *(context-aware by selections)*
+- **YoY_Sales_Growth** *(selected Year vs prior Year; blank for first year)*
+- **Top_Store_ID / Top_StoreType** + narrative/tooltip helpers
+
+### DAX & Docs
+- Measures: [dax/measures/core_measures.dax](dax/measures/core_measures.dax)  
+- Calc columns: [dax/calc-columns/fact_and_dim_columns.dax](dax/calc-columns/fact_and_dim_columns.dax)  
+- Architecture: [Docs/Architecture.md](Docs/Architecture.md)  
+- KPIs: [Docs/KPIs.md](Docs/KPIs.md)  
+- Changelog: [Docs/CHANGELOG.md](Docs/CHANGELOG.md)
 
 ## Screens
-See `/Screenshots` for full dashboards (Executive Overview & Profitability Insights) with drill‑through examples.
+- **Executive Overview** – KPIs, weekly pattern, top store type  
+  [View screenshot](assets/screenshots/executive_overview.png)
+
+- **Profitability Insights** – profit by store type, holiday vs non-holiday, weekly trend  
+  [View screenshot](assets/screenshots/profitability_insights.png)
+
+  Screenshots reflect the full date range. Key insights below summarize the latest year.
 
 ## How to open and refresh
-1. Open **PowerBI_Files/Walmart_Sales.pbix** in Power BI Desktop.
-2. If prompted, set **Anonymous** credentials for `https://raw.githubusercontent.com/`.
+1. Open **PowerBI_Files/Walmart_Sales.pbix** in Power BI Desktop.  
+2. If prompted, set **Anonymous** credentials for `https://raw.githubusercontent.com/`.  
 3. Home → **Transform data** (review) → **Close & Apply** → **Refresh**.
 
 ## Repo structure
@@ -48,14 +69,18 @@ See `/Screenshots` for full dashboards (Executive Overview & Profitability Insig
 - `dax/measures/` – `core_measures.dax`
 - `dax/calc-columns/` – `fact_and_dim_columns.dax`
 - `assets/screenshots/` – dashboard images
-- `Docs/` – notes (e.g., KPIs.md)
+- `Docs/` – architecture/KPIs/changelog
 
 ### Notes
-- `YoY_Sales_Growth_v2` uses the selected **Year** and compares to the prior year (first year shows blank).
-- “Top Store” is filter-aware (respects slicers); “Top Store Type” is a separate KPI on purpose.
+- `YoY_Sales_Growth_v2` compares the selected **Year** to the prior year; first year shows blank by design.
+- “Top Store” measures are filter-aware (respect slicers); “Top Store Type” is kept separate on purpose.
 
-## Preview
-![Executive Overview](assets/screenshots/Executive_Overview.png)
-![Profitability Insights](assets/screenshots/Profitability_Insights.png)
+  ## Key insights (latest year in data)
+- **Latest year:** 2012  
+- **Top store:** Store **4** (Type **A**) with **$2.00bn** in sales.  
+- **Year-over-year:** **–18%** vs prior year.  
+- **Holiday impact:** **5%** of annual sales (≈ **$98.34M**).  
+- **Peak trading week:** Week **15**.
 
 
+License: MIT — see [LICENSE](LICENSE)
