@@ -55,6 +55,8 @@ Star schema:
 - **Profitability Insights** – profit by store type, holiday vs non-holiday, weekly trend  
   [View screenshot](assets/screenshots/profitability_insights.png)
 
+  Screenshots reflect the full date range. Key insights below summarize the latest year.
+
 ## How to open and refresh
 1. Open **PowerBI_Files/Walmart_Sales.pbix** in Power BI Desktop.  
 2. If prompted, set **Anonymous** credentials for `https://raw.githubusercontent.com/`.  
@@ -72,5 +74,13 @@ Star schema:
 ### Notes
 - `YoY_Sales_Growth_v2` compares the selected **Year** to the prior year; first year shows blank by design.
 - “Top Store” measures are filter-aware (respect slicers); “Top Store Type” is kept separate on purpose.
+
+  ## Key insights (latest year in data)
+- **Latest year:** 2012  
+- **Top store:** Store **4** (Type **A**) with **$2.00bn** in sales.  
+- **Year-over-year:** **–18%** vs prior year.  
+- **Holiday impact:** **5%** of annual sales (≈ **$98.34M**).  
+- **Peak trading week:** Week **15**.
+
 
 License: MIT — see [LICENSE](LICENSE)
