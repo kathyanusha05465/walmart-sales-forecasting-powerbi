@@ -30,3 +30,4 @@ Power Query loads CSVs from the repo via GitHub raw URLs (Anonymous).
 - Week-level visuals use `Week_Num` across years (by design for now).
 - Profit is a fixed 24.5% margin (assumption).
 - No separate Date dimension yet (kept minimal for recruiting demo).
+- Source is Kaggle Walmart Sales; values are illustrative for demo.
