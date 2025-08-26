@@ -1,3 +1,8 @@
+[![Release](https://img.shields.io/github/v/release/kathyanusha05465/walmart-sales-forecasting-powerbi)](https://github.com/kathyanusha05465/walmart-sales-forecasting-powerbi/releases)
+[![MIT License](https://img.shields.io/github/license/kathyanusha05465/walmart-sales-forecasting-powerbi)](LICENSE)
+
+**Download PBIX (latest):** see [Releases](https://github.com/kathyanusha05465/walmart-sales-forecasting-powerbi/releases/latest).
+
 # Walmart Sales Forecasting – Power BI
 
 Production-style Power BI project that turns the Walmart weekly sales dataset into decision-ready insights.  
